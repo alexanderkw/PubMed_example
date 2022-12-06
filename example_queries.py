@@ -8,7 +8,7 @@ from prefect import flow, task
 @task(name='SQL Query Test')
 def query_test(sql_target):
     ### Begin SQL load component
-    engine = sqlalchemy.create_engine('sqlite:///' + sql_target, echo=True)
+    engine = sqlalchemy.create_engine('sqlite:///' + sql_target)
 
     test_list = [
         ('Get the largest pmid present in tbl_pubmed_article:',
@@ -43,6 +43,9 @@ LIMIT 8;""")
             print(row)
 
 #@flow(name='Short Test')
+#def local_flow(sqlite_filepath):
+#    query_test(sqlite_filepath)
+
 #if __name__ == '__main__':
 #    # Either run this from terminal; or if debugging add parameters to the run configuration
 #    try:
@@ -50,4 +53,4 @@ LIMIT 8;""")
 #    except:
 #        sqlite_filepath = input('SQLite filepath: ')
 #
-#    query_test(sqlite_filepath)
+#    local_flow(sqlite_filepath)

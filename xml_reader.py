@@ -160,7 +160,7 @@ def load_xml_from_directory(directory):
                             #    df_author_list.at[i_author, xml_element] = get_leaf_value(author_list_leaf_addresses, xml_element, author)
 
                         # Get the author affiliation if it exists
-                        affiliation_info = article.findall('AffiliationInfo')
+                        affiliation_info = author.findall('AffiliationInfo')
                         if affiliation_info is not None:
                             for affiliation in affiliation_info:
                                 # Get the affiliation from its branches and the author info from the higher level
@@ -280,21 +280,25 @@ def load_to_sql(sql_target):
     )
 
     # Drop the temp tables afterwards
-    engine.execute(
-        """DROP TABLE IF EXISTS temp_pubmed_article;"""
-    )
-    engine.execute(
-        """DROP TABLE IF EXISTS temp_author;"""
-    )
-    engine.execute(
-        """DROP TABLE IF EXISTS temp_author_list;"""
-    )
-    engine.execute(
-        """DROP TABLE IF EXISTS temp_author_affiliation;"""
-    )
+    # engine.execute(
+    #     """DROP TABLE IF EXISTS temp_pubmed_article;"""
+    # )
+    # engine.execute(
+    #     """DROP TABLE IF EXISTS temp_author;"""
+    # )
+    # engine.execute(
+    #     """DROP TABLE IF EXISTS temp_author_list;"""
+    # )
+    # engine.execute(
+    #     """DROP TABLE IF EXISTS temp_author_affiliation;"""
+    # )
 
-#@flow(name='ELT XML')
-#if __name__ == '__main__':
+# @flow(name='ELT XML')
+# def local_flow(xml_in_filepath, sqlite_filepath):
+#     load_xml_from_directory(xml_in_filepath)
+#     load_to_sql(sqlite_filepath)
+#
+# if __name__ == '__main__':
 #    # Either run this from terminal; or if debugging add parameters to the run configuration
 #    try:
 #        xml_in_filepath = sys.argv[1]
@@ -303,5 +307,4 @@ def load_to_sql(sql_target):
 #        xml_in_filepath = input('XML directory filepath: ')
 #        sqlite_filepath = input('SQLite filepath: ')
 #
-#    load_xml_from_directory(xml_in_filepath)
-#    load_to_sql(sqlite_filepath)
+#    local_flow(xml_in_filepath, sqlite_filepath)

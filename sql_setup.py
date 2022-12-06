@@ -90,7 +90,10 @@ def sql_setup(filepath, replace):
 	)
 
 
-#@flow(name='SQL Setup')
+# @flow(name='SQL Setup')
+# def local_flow(sqlite_filepath, replace_tables):
+# 	sql_setup(sqlite_filepath, replace_tables)
+
 #if __name__ == '__main__':
 #	# Either run this from terminal; or if debugging add parameters to the run configuration
 #	try:
@@ -100,4 +103,4 @@ def sql_setup(filepath, replace):
 #		sqlite_filepath = input('SQLite filepath: ')
 #		replace_tables = input('Replace existing tables? y/n: ')
 #
-#	sql_setup(sqlite_filepath, replace_tables)
+#	local_flow(sqlite_filepath, replace_tables)
