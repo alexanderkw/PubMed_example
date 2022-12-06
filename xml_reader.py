@@ -279,19 +279,19 @@ def load_to_sql(sql_target):
     ;"""
     )
 
-    # Drop the temp tables afterwards
-    # engine.execute(
-    #     """DROP TABLE IF EXISTS temp_pubmed_article;"""
-    # )
-    # engine.execute(
-    #     """DROP TABLE IF EXISTS temp_author;"""
-    # )
-    # engine.execute(
-    #     """DROP TABLE IF EXISTS temp_author_list;"""
-    # )
-    # engine.execute(
-    #     """DROP TABLE IF EXISTS temp_author_affiliation;"""
-    # )
+    Drop the temp tables afterwards
+    engine.execute(
+        """DROP TABLE IF EXISTS temp_pubmed_article;"""
+    )
+    engine.execute(
+        """DROP TABLE IF EXISTS temp_author;"""
+    )
+    engine.execute(
+        """DROP TABLE IF EXISTS temp_author_list;"""
+    )
+    engine.execute(
+        """DROP TABLE IF EXISTS temp_author_affiliation;"""
+    )
 
 # @flow(name='ELT XML')
 # def local_flow(xml_in_filepath, sqlite_filepath):
