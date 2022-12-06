@@ -279,7 +279,7 @@ def load_to_sql(sql_target):
     ;"""
     )
 
-    Drop the temp tables afterwards
+    # Drop the temp tables afterwards
     engine.execute(
         """DROP TABLE IF EXISTS temp_pubmed_article;"""
     )
