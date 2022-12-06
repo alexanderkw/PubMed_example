@@ -5,7 +5,7 @@ import pathlib
 import sqlalchemy
 import xml.etree.ElementTree as et
 import pandas
-from prefect import flow
+from prefect import flow, task
 import sys
 
 
@@ -110,7 +110,7 @@ def get_leaf_value(address_dict: dict, column_identifier: str, xml_branch):
         return None
 
 
-@flow(name="XML parse")
+@task(name="XML parse")
 def load_xml_from_directory(directory):
     # Get list of XML files in xml-input
     try:
@@ -216,11 +216,11 @@ def load_xml_from_directory(directory):
     df_author_list.drop(labels=['medline_citation_status', 'medline_citation_owner', 'pmid'], axis=1, inplace=True)
 
 
-@flow(name="SQL load")
+@task(name="SQL load")
 def load_to_sql(sql_target):
     ### Begin SQL load component
     try:
-        engine = sqlalchemy.create_engine(sql_target)
+        engine = sqlalchemy.create_engine('sqlite:///' + sql_target)
     except:
         print('SQLite target not found')
     # Send dataframes to target database as newly created staging tables
@@ -293,15 +293,15 @@ def load_to_sql(sql_target):
         """DROP TABLE IF EXISTS temp_author_affiliation;"""
     )
 
-
-if __name__ == '__main__':
-    # Either run this from terminal; or if debugging add parameters to the run configuration
-    try:
-        xml_in_filepath = sys.argv[1]
-        sqlite_filepath = sys.argv[2]
-    except:
-        xml_in_filepath = input('XML directory filepath: ')
-        sqlite_filepath = input('SQLite filepath: ')
-
-    load_xml_from_directory(xml_in_filepath)
-    load_to_sql('sqlite:///' + sqlite_filepath)
+#@flow(name='ELT XML')
+#if __name__ == '__main__':
+#    # Either run this from terminal; or if debugging add parameters to the run configuration
+#    try:
+#        xml_in_filepath = sys.argv[1]
+#        sqlite_filepath = sys.argv[2]
+#    except:
+#        xml_in_filepath = input('XML directory filepath: ')
+#        sqlite_filepath = input('SQLite filepath: ')
+#
+#    load_xml_from_directory(xml_in_filepath)
+#    load_to_sql(sqlite_filepath)
