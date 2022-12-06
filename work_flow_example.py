@@ -15,7 +15,7 @@ def parse_xml_flow(xml_path):
 
 @flow(name='Send To SQL')
 def sql_load_flow(sql_path):
-    sql_setup(sql_path)
+    xml_reader.load_to_sql(sql_path)
 
 @flow(name='Basic Test')
 def sql_test_flow(sql_path):
