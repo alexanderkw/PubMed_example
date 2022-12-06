@@ -10,6 +10,7 @@ Uses prefect workflows to create a Python pipeline from a specified local direct
 
 * Prefect task running at present is effectively consecutive largely for ease of implementation; parallel xml file parsing would enormously speed up implementation in a cloud setting.
 * The script at present gets overall values for a PubmedArticle element and many-to-one values for associated Author and Affiliation elements. Other elements are ignored principally due to time considerations for the purposes of this demonstration.
+* The script at present ignores existing entries instead of updating them. Updating on duplication could easily be implemented by slightly altering the SQL code.
 * A number of assumptions have been made about the nature of the incoming data:
     * The data of interest are the PubmedArticle elements, and not other elements such as those recording deletion. This is reasoned on the basis that other elements are mostly either obviously broken or nearly completely empty; e.g. DeleteCitation consists only of a numeric id.
     * PubmedArticles must contain an ArticleTitle element to be valid, that is, they must have at a title of some kind that is at least theoretically human readable. Articles without titles were viewed as either broken or empty of crucial human readable information.
@@ -29,6 +30,7 @@ Uses prefect workflows to create a Python pipeline from a specified local direct
 
 * Create a SQLite database using ```sqlite3 your_name_here.db```
 * Extract North-West-Health-Pipeline to a suitable location.
+* Download the .xml.gz files desired from https://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/ 
 
 ### Executing program
 
@@ -36,10 +38,11 @@ Uses prefect workflows to create a Python pipeline from a specified local direct
 ```
 python sql_setup.py C:/path/to/database.db y
 ```
-* Process into SQL table format and load with xml-reader.py. This takes arguments for the path to the directory containing the xml files to be loaded and the path to the SQLite database. All .xml files in the directory will be loaded.
+* Process into SQL table format and load with xml_reader.py. This takes arguments for the path to the directory containing the xml files to be loaded and the path to the SQLite database. All .xml files in the directory will be loaded.
 ```
-python xml-reader.py 'C:/path/to/xml/folder C:/path/to/database.db
+python xml_reader.py 'C:/path/to/xml/folder C:/path/to/database.db
 ```
+* The example_queries.py file queries the resulting database and demonstrates connections between the major tables. It takes the path to the SQLite database as an argument.
 
 ## Author
 

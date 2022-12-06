@@ -275,7 +275,7 @@ def load_to_sql(sql_target):
         SELECT IFNULL(lastname, '') || IFNULL(forename, '') || IFNULL(initials, '') || IFNULL(tmp.affiliation, '')
         FROM tbl_author_affiliation
     )
-    GROUP BY tmp.medline_article_id, tmp.lastname, tmp.forename, tmp.initials
+    GROUP BY tmp.lastname, tmp.forename, tmp.initials, tmp.affiliation
     ;"""
     )
 
