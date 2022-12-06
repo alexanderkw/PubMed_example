@@ -3,14 +3,12 @@
 
 import sys
 import sqlalchemy
+from prefect import flow, task
 
+@task(name='SQL Query Test')
 def query_test(sql_target):
     ### Begin SQL load component
-    engine = sqlalchemy.create_engine(sql_target, echo=True)
-    try:
-        engine = sqlalchemy.create_engine(sql_target)
-    except:
-        print('SQLite target not found')
+    engine = sqlalchemy.create_engine('sqlite:///' + sql_target, echo=True)
 
     test_list = [
         ('Get the largest pmid present in tbl_pubmed_article:',
@@ -44,12 +42,12 @@ LIMIT 8;""")
         for row in query_result:
             print(row)
 
-
-if __name__ == '__main__':
-    # Either run this from terminal; or if debugging add parameters to the run configuration
-    try:
-        sqlite_filepath = sys.argv[1]
-    except:
-        sqlite_filepath = input('SQLite filepath: ')
-
-    query_test('sqlite:///' + sqlite_filepath)
+#@flow(name='Short Test')
+#if __name__ == '__main__':
+#    # Either run this from terminal; or if debugging add parameters to the run configuration
+#    try:
+#        sqlite_filepath = sys.argv[1]
+#    except:
+#        sqlite_filepath = input('SQLite filepath: ')
+#
+#    query_test(sqlite_filepath)

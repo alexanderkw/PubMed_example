@@ -4,7 +4,7 @@ A pipeline that takes pubmed article xmls from a directory and loads them into a
 
 ## Description
 
-Uses prefect workflows to create a Python pipeline from a specified local directory into a specified local SQLite database (to set up a SQLite database see Installing). The scripts handle data in the form of XML pubmed files from https://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/.
+Uses prefect flows to create a Python pipeline from a specified local directory into a specified local SQLite database (to set up a SQLite database see Installing). The scripts handle data in the form of XML pubmed files from https://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/.
 
 ## Notes
 
@@ -39,7 +39,7 @@ The program can be run via Prefect or run as each of the three major files indiv
 
 #### Prefect Workflow
 
-* A local Prefect workflow can be run from the file work_flow_example.py. This will set up tables in a provided SQLite database, replacing any previously present if 'y' is given, and load data into them from .xml files in a given directory. Note that doing so could be very time consuming if using a full xml download set.
+* A local Prefect workflow can be run from the file work_flow_example.py. This will set up tables in a provided SQLite database, replacing any previously present if 'y' is given, and load data into them from .xml files in a given directory. It will then request a few query results to check that the database has populated correctly. Note that XML loading could be very time consuming if using a full xml download set.
 ```
 python work_flow_example.py 'C:/path/to/database.db' 'n' 'C:/path/to/xml/folder'
 ```
