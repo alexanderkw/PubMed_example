@@ -40,9 +40,12 @@ python sql_setup.py C:/path/to/database.db y
 ```
 * Process into SQL table format and load with xml_reader.py. This takes arguments for the path to the directory containing the xml files to be loaded and the path to the SQLite database. All .xml files in the directory will be loaded.
 ```
-python xml_reader.py 'C:/path/to/xml/folder C:/path/to/database.db
+python xml_reader.py C:/path/to/xml/folder C:/path/to/database.db
 ```
 * The example_queries.py file queries the resulting database and demonstrates connections between the major tables. It takes the path to the SQLite database as an argument.
+```
+python example_queries.py C:/path/to/database.db
+```
 
 ## Author
 
